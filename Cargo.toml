@@ -1,5 +1,5 @@
 [package]
-name = "memory-replacement"
+name = "memory-allocator"
 version = "0.1.0"
 authors = ["Kyle Pfromer <kpfromer2@gmail.com>"]
 edition = "2018"
