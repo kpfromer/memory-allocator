@@ -1,8 +1,9 @@
+use anyhow::{anyhow, Error, Result};
 use std::str::FromStr;
-use anyhow::{Result,anyhow, Error};
 use structopt::StructOpt;
 
 mod memory_allocator;
+mod memory_replacement;
 
 use memory_allocator::*;
 
@@ -10,7 +11,7 @@ use memory_allocator::*;
 enum AllocationType {
     FIFO,
     LRU,
-    OPT
+    OPT,
 }
 
 impl FromStr for AllocationType {
@@ -21,7 +22,7 @@ impl FromStr for AllocationType {
             "fifo" => Ok(AllocationType::FIFO),
             "lru" => Ok(AllocationType::LRU),
             "opt" => Ok(AllocationType::OPT),
-            _ => Err(anyhow!("Invalid allocation type."))
+            _ => Err(anyhow!("Invalid allocation type.")),
         }
     }
 }
@@ -33,7 +34,7 @@ struct Cli {
     #[structopt(short, long)]
     frames: i32,
 
-    #[structopt(short="t", long="type", default_value="lru")]
+    #[structopt(short = "t", long = "type", default_value = "lru")]
     allocation_type: AllocationType,
 
     // The memory access string, split on spaces.
@@ -45,7 +46,7 @@ fn main() -> Result<()> {
     let Cli {
         reference_string,
         frames,
-        allocation_type
+        allocation_type,
     } = Cli::from_args();
 
     let accesses = reference_string
